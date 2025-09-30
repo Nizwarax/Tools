@@ -7,32 +7,25 @@ CLI client for a certain Indonesian mobile internet service provider.
 # How to get API Key
 Chat telegram bot [@fykxt_bot](https://t.me/fykxt_bot) with message `/viewkey`. Copy the API key.
 
-# How to run with TERMUX
-1. Update & Upgrade Termux
-```
-pkg update && pkg upgrade -y
-```
-2. Install Git
-```
-pkg install git -y
-```
-3. Clone this repo
+# Installation (Termux / Debian / Ubuntu)
+
+1. Clone this repo
 ```
 git clone https://github.com/barbexid/dor
 ```
-4. Open the folder
+2. Open the folder
 ```
 cd dor
 ```
-5. Setup
+3. Run the installation script
 ```
-bash setup.sh
+bash install.sh
 ```
-6. Run the script
+4. Run the main script
 ```
 python main.py
 ```
-7. Input your API key when prompted
+5. Input your API key when prompted.
 #
 # For updates
 ```
