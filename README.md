@@ -18,7 +18,7 @@ pkg install git -y
 ```
 3. Clone this repo
 ```
-git clone https://github.com/barbexid/dor
+git clone https://github.com/Nizwarax/Tools
 ```
 4. Open the folder
 ```
