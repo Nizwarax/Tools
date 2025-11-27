@@ -4,6 +4,7 @@ from datetime import datetime, timezone, timedelta
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
 from dataclasses import dataclass
+from typing import Union, Optional  # Tambahkan import ini
 
 API_KEY = os.getenv("API_KEY")
 
@@ -79,7 +80,8 @@ def b64(data: bytes, urlsafe: bool) -> str:
     return enc(data).decode("ascii")
 
 
-def build_encrypted_field(iv_hex16: str | None = None, urlsafe_b64: bool = False) -> str:
+# Perbaiki type hinting di sini
+def build_encrypted_field(iv_hex16: Optional[str] = None, urlsafe_b64: bool = False) -> str:
     key = AES_KEY_ASCII.encode("ascii")
     iv_hex = iv_hex16 or random_iv_hex16()
     iv = iv_hex.encode("ascii") 
