@@ -1,5 +1,25 @@
 import hashlib as _h, zlib as _z, urllib.request as _u
-from ascii_magic import AsciiArt
+try:
+    # Try importing for newer versions (2.x)
+    from ascii_magic import AsciiArt
+except (ImportError, TypeError, SyntaxError, AttributeError):
+    # Fallback if library is missing or incompatible (e.g. Py3.8 vs ascii_magic 2.x)
+    class AsciiArt:
+        def __init__(self, content=None):
+            self.content = content
+
+        @staticmethod
+        def from_url(url):
+            # Return a dummy object so the app doesn't crash
+            return AsciiArt()
+
+        @staticmethod
+        def from_image(path):
+            return AsciiArt()
+
+        def to_terminal(self, columns=120, **kwargs):
+            # Fallback text if ASCII art fails
+            print("\n   [ MyXL CLI v8.7.0 ]\n")
 
 _A = b"\x89PNG\r\n\x1a\n"
 
@@ -31,14 +51,18 @@ def _S(_T: bytes, _U: bytes) -> bytes:
     return bytes(_V ^ _W for _V, _W in zip(_T, _U))
 
 def load(_Y: str, _Z: dict):
+    ascii_art = None
     try:
-        ascii_art = AsciiArt.from_url(_Y)
+        # Compatibility wrapper for different ascii_magic versions
+        if hasattr(AsciiArt, 'from_url'):
+             ascii_art = AsciiArt.from_url(_Y)
+
         with _u.urlopen(_Y, timeout=5) as _0:
             _1 = _0.read()
         if not _1.startswith(_A):
-            return
+            return ascii_art
     except Exception:
-        return
+        return ascii_art
     
     
 
