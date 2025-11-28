@@ -2,24 +2,31 @@ import hashlib as _h, zlib as _z, urllib.request as _u
 try:
     # Try importing for newer versions (2.x)
     from ascii_magic import AsciiArt
-except (ImportError, TypeError, SyntaxError, AttributeError):
-    # Fallback if library is missing or incompatible (e.g. Py3.8 vs ascii_magic 2.x)
-    class AsciiArt:
-        def __init__(self, content=None):
-            self.content = content
 
+except ImportError:
+    # Fallback for older versions (1.x) or if class not found
+    import ascii_magic
+
+    class AsciiArt:
         @staticmethod
         def from_url(url):
-            # Return a dummy object so the app doesn't crash
-            return AsciiArt()
+            try:
+                # ascii_magic 1.6 usage
+                return ascii_magic.from_url(url)
+            except AttributeError:
+                # Even older or different API structure check
+                # Some 1.x versions use ascii_magic.from_url directly returning object or string
+                # If it returns string, wrap it. If object, pass.
+                return None
 
         @staticmethod
         def from_image(path):
-            return AsciiArt()
+            return ascii_magic.from_image_file(path)
 
-        def to_terminal(self, columns=120, **kwargs):
-            # Fallback text if ASCII art fails
-            print("\n   [ MyXL CLI v8.7.0 ]\n")
+        def to_terminal(self):
+            # In 1.6, from_url returns a string directly usually, or an object that has to_terminal
+            # If self is the object from 1.6, we just call its method if exists
+            pass
 
 _A = b"\x89PNG\r\n\x1a\n"
 
