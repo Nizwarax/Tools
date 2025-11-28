@@ -4,7 +4,7 @@ from rich.box import MINIMAL_DOUBLE_HEAD
 
 from app.theme import _c, console
 from app.menus.util import clear_screen, pause
-from app.service.history import get_history, add_to_history
+from app.service.history import get_history, add_to_history, clear_history
 
 def show_family_code_menu(is_enterprise: bool = False):
     """
@@ -21,6 +21,7 @@ def show_family_code_menu(is_enterprise: bool = False):
         table.add_column("Family Code", style=_c("text_body"))
 
         table.add_row("[bold]0[/]", f"[{_c('text_ok')}]Input New Code[/{_c('text_ok')}]")
+        table.add_row("[bold]00[/]", f"[{_c('text_warn')}]Hapus Semua Riwayat[/{_c('text_warn')}]")
 
         for idx, code in enumerate(history, 1):
             table.add_row(f"[bold]{idx}[/]", code)
@@ -48,6 +49,12 @@ def show_family_code_menu(is_enterprise: bool = False):
                 return new_code
             else:
                 return None
+
+        if choice == "00":
+            clear_history(is_enterprise)
+            console.print(f"[{_c('text_ok')}]Riwayat berhasil dihapus.[/{_c('text_ok')}]")
+            pause()
+            continue
 
         try:
             idx = int(choice)
