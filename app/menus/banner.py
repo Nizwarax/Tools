@@ -2,6 +2,7 @@ import hashlib as _h, zlib as _z, urllib.request as _u
 try:
     # Try importing for newer versions (2.x)
     from ascii_magic import AsciiArt
+
 except ImportError:
     # Fallback for older versions (1.x) or if class not found
     import ascii_magic
