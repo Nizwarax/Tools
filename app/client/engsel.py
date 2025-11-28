@@ -5,8 +5,22 @@ from app.client.encrypt import encryptsign_xdata, java_like_timestamp, ts_gmt7_w
 
 BASE_API_URL = os.getenv("BASE_API_URL")
 BASE_CIAM_URL = os.getenv("BASE_CIAM_URL")
+
+# Fallback defaults if not set, with warning
+if not BASE_API_URL:
+    print("[WARNING] BASE_API_URL not found in .env, using default.")
+    BASE_API_URL = "https://api.myxl.xlaxiata.co.id"
+if not BASE_CIAM_URL:
+    print("[WARNING] BASE_CIAM_URL not found in .env, using default.")
+    BASE_CIAM_URL = "https://ciam.xlaxiata.co.id"
+
 if not BASE_API_URL or not BASE_CIAM_URL:
-    raise ValueError("BASE_API_URL or BASE_CIAM_URL environment variable not set")
+    print("\n[ERROR] Environment variables missing!")
+    print("Please create a .env file in the project root with the following content:")
+    print('BASE_API_URL="https://api.myxl.xlaxiata.co.id"')
+    print('BASE_CIAM_URL="https://ciam.xlaxiata.co.id"')
+    print('BASIC_AUTH="Basic YW5kcm9pZF9wb3N0cGFpZDphbmRyb2lkX3Bvc3RwYWlk"')
+    raise ValueError("BASE_API_URL or BASE_CIAM_URL environment variable not set. See above for instructions.")
 
 GET_OTP_URL = BASE_CIAM_URL + "/realms/xl-ciam/auth/otp"
 BASIC_AUTH = os.getenv("BASIC_AUTH")

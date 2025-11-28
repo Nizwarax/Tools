@@ -1,7 +1,12 @@
-from dotenv import load_dotenv
-load_dotenv()
-
+import os
 import sys
+from dotenv import load_dotenv
+
+# Force load .env from the script's directory
+project_dir = os.path.dirname(os.path.abspath(__file__))
+dotenv_path = os.path.join(project_dir, '.env')
+load_dotenv(dotenv_path)
+
 from datetime import datetime
 from rich.panel import Panel
 from rich.table import Table
@@ -15,6 +20,7 @@ from app.menus.bookmark import show_bookmark_menu
 from app.menus.account import show_account_menu
 from app.menus.package import fetch_my_packages, get_packages_by_family
 from app.menus.hot import show_hot_menu
+from app.menus.family_history_menu import show_family_code_menu
 from app.theme import _c, console, set_theme, get_active_theme_name, THEMES
 
 # ========== Utility Pesan ==========
@@ -158,8 +164,8 @@ def main():
                 except Exception as e:
                     pesan_error(f"Gagal menampilkan menu HOT: {e}")
             elif choice == "4":
-                family_code = console.input(f"[{_c('text_sub')}]Masukkan family code (atau '99' untuk batal):[/{_c('text_sub')}] ").strip()
-                if family_code != "99":
+                family_code = show_family_code_menu(is_enterprise=False)
+                if family_code:
                     try:
                         get_packages_by_family(family_code)
                     except Exception as e:
@@ -167,8 +173,8 @@ def main():
                 else:
                     pesan_info("Aksi dibatalkan.")
             elif choice == "5":
-                family_code = console.input(f"[{_c('text_sub')}]Masukkan family code (Enterprise):[/{_c('text_sub')}] ").strip()
-                if family_code != "99":
+                family_code = show_family_code_menu(is_enterprise=True)
+                if family_code:
                     try:
                         get_packages_by_family(family_code, is_enterprise=True)
                     except Exception as e:
