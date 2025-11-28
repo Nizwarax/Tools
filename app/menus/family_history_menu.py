@@ -21,11 +21,11 @@ def show_family_code_menu(is_enterprise: bool = False):
         table.add_column("Family Code", style=_c("text_body"))
 
         table.add_row("[bold]0[/]", f"[{_c('text_ok')}]Input New Code[/{_c('text_ok')}]")
-        table.add_row("[bold]00[/]", f"[{_c('text_warn')}]Hapus Semua Riwayat[/{_c('text_warn')}]")
 
         for idx, code in enumerate(history, 1):
             table.add_row(f"[bold]{idx}[/]", code)
 
+        table.add_row("[bold]00[/]", f"[{_c('text_warn')}]Hapus Semua Riwayat[/{_c('text_warn')}]")
         table.add_row("[bold]99[/]", f"[{_c('text_err')}]Back to Main Menu[/{_c('text_err')}]")
 
         panel = Panel(
