@@ -22,7 +22,7 @@ git clone https://github.com/Nizwarax/Tools
 ```
 4. Open the folder
 ```
-cd dor
+cd Tools
 ```
 5. Setup
 ```
