@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+family_code_history.json
+tokens.json
+refresh-tokens.json
