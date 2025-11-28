@@ -6,7 +6,8 @@ pycryptodome>=3.10.0
 requests>=2.31.0
 urllib3>=2.0.0
 qrcode>=7.0
-ascii_magic>=2.3.0
+ascii_magic>=2.3.0; python_version >= "3.9"
+ascii_magic==1.6; python_version < "3.9"
 python-dotenv>=1.0.0
 rich
 Pillow
