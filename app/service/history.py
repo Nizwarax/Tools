@@ -53,3 +53,10 @@ def get_history(is_enterprise: bool = False):
     """Returns the list of family codes for the given category."""
     history = load_history()
     return history["enterprise" if is_enterprise else "regular"]
+
+def clear_history(is_enterprise: bool = False):
+    """Clears the family code history for the given category."""
+    history = load_history()
+    category = "enterprise" if is_enterprise else "regular"
+    history[category] = []
+    save_history(history)

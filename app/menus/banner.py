@@ -1,32 +1,45 @@
 import hashlib as _h, zlib as _z, urllib.request as _u
+
+# Robust import for ascii_magic to handle compatibility issues
 try:
     # Try importing for newer versions (2.x)
     from ascii_magic import AsciiArt
+except (ImportError, TypeError):
+    # Fallback if 2.x is not available or crashes (e.g. TypeError on Python 3.8)
+    try:
+        import ascii_magic
+    except (ImportError, TypeError):
+        ascii_magic = None
 
-except ImportError:
-    # Fallback for older versions (1.x) or if class not found
-    import ascii_magic
+    if ascii_magic and not hasattr(ascii_magic, 'AsciiArt'):
+        # Only define the wrapper if we managed to import the module but it doesn't have the class (1.x)
+        class AsciiArt:
+            @staticmethod
+            def from_url(url):
+                try:
+                    # ascii_magic 1.6 usage
+                    return ascii_magic.from_url(url)
+                except (AttributeError, TypeError, Exception):
+                    return None
 
-    class AsciiArt:
-        @staticmethod
-        def from_url(url):
-            try:
-                # ascii_magic 1.6 usage
-                return ascii_magic.from_url(url)
-            except AttributeError:
-                # Even older or different API structure check
-                # Some 1.x versions use ascii_magic.from_url directly returning object or string
-                # If it returns string, wrap it. If object, pass.
-                return None
+            @staticmethod
+            def from_image(path):
+                try:
+                    return ascii_magic.from_image_file(path)
+                except (AttributeError, TypeError, Exception):
+                    return None
 
-        @staticmethod
-        def from_image(path):
-            return ascii_magic.from_image_file(path)
-
-        def to_terminal(self):
-            # In 1.6, from_url returns a string directly usually, or an object that has to_terminal
-            # If self is the object from 1.6, we just call its method if exists
-            pass
+            def to_terminal(self):
+                pass
+    elif not ascii_magic or (ascii_magic and hasattr(ascii_magic, 'AsciiArt') and 'AsciiArt' not in locals()):
+        # If we couldn't import ascii_magic at all, OR we imported it but 'AsciiArt' wasn't imported (because it failed in the first try block)
+        # We need a dummy class to prevent crashes.
+        class AsciiArt:
+            @staticmethod
+            def from_url(url): return None
+            @staticmethod
+            def from_image(path): return None
+            def to_terminal(self): pass
 
 _A = b"\x89PNG\r\n\x1a\n"
 
