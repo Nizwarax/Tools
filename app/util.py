@@ -35,7 +35,7 @@ def verify_api_key(api_key: str, *, timeout: float = 10.0) -> bool:
     Any network error or non-200 is treated as invalid.
     """
     try:
-        url = f"https://crypto.mashu.lol/api/verify?key={api_key}"
+        url = f"https://me-crypto.mashu.lol/api/verify?key={api_key}"
         resp = requests.get(url, timeout=timeout)
         if resp.status_code == 200:
             json_resp = resp.json()
