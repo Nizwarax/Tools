@@ -8,7 +8,7 @@ from typing import Union, Optional  # Tambahkan import ini
 
 API_KEY = os.getenv("API_KEY")
 
-BASE_CRYPTO_URL = "https://crypto.mashu.lol/api/870"
+BASE_CRYPTO_URL = "https://me-crypto.mashu.lol/api/870"
 
 XDATA_DECRYPT_URL = f"{BASE_CRYPTO_URL}/decrypt"
 XDATA_ENCRYPT_SIGN_URL = f"{BASE_CRYPTO_URL}/encryptsign"
