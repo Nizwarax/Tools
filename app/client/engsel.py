@@ -223,7 +223,7 @@ def send_api_request(
         "x-signature": x_sig,
         "x-request-id": str(uuid.uuid4()),
         "x-request-at": java_like_timestamp(now),
-        "x-version-app": "8.7.0",
+        "x-version-app": "8.9.0",
     }
     
     
@@ -247,7 +247,7 @@ def get_profile(api_key: str, access_token: str, id_token: str) -> dict:
 
     raw_payload = {
         "access_token": access_token,
-        "app_version": "8.7.0",
+        "app_version": "8.9.0",
         "is_enterprise": False,
         "lang": "en"
     }
@@ -425,7 +425,7 @@ def send_payment_request(
         "x-signature": x_sig,
         "x-request-id": str(uuid.uuid4()),
         "x-request-at": java_like_timestamp(x_requested_at),
-        "x-version-app": "8.7.0",
+        "x-version-app": "8.9.0",
     }
     
     url = f"{BASE_API_URL}/{path}"

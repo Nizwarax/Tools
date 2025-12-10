@@ -47,7 +47,7 @@ def _print_centered_panel(renderable, title="", border_style=""):
 
 def show_banner():
     clear_screen()
-    banner_text = f"[{_c('text_title')}]Selamat Datang di MyXL CLI v8.7.0[/]"
+    banner_text = f"[{_c('text_title')}]Selamat Datang di MyXL CLI v8.9.0[/]"
     centered_text = Align.center(banner_text)
     panel = Panel(
         centered_text,

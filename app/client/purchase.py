@@ -146,7 +146,7 @@ def settlement_multipayment(
         "x-signature": x_sig,
         "x-request-id": str(uuid.uuid4()),
         "x-request-at": java_like_timestamp(x_requested_at),
-        "x-version-app": "8.7.0",
+        "x-version-app": "8.9.0",
     }
     
     url = f"{BASE_API_URL}/{path}"
@@ -385,7 +385,7 @@ def settlement_qris(
         "x-signature": x_sig,
         "x-request-id": str(uuid.uuid4()),
         "x-request-at": java_like_timestamp(x_requested_at),
-        "x-version-app": "8.7.0",
+        "x-version-app": "8.9.0",
     }
     
     url = f"{BASE_API_URL}/{path}"
@@ -594,7 +594,7 @@ def settlement_bounty(
         "x-signature": x_sig,
         "x-request-id": str(uuid.uuid4()),
         "x-request-at": java_like_timestamp(x_requested_at),
-        "x-version-app": "8.7.0",
+        "x-version-app": "8.9.0",
     }
     
     url = f"{BASE_API_URL}/{path}"
